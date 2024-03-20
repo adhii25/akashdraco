@@ -1,0 +1,62 @@
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{% url 'dragonapp:showProducts' %}">HOME</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'dragonapp:add_movie' %}">ADD MOVIE</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'dragonapp:all_movies' %}">ALL MOVIES</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            CATEGORIES
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#">All Movies</a></li>
+            {% for c in movie_cat %}
+            <li><a class="dropdown-item" href="#">{{c.category}}</a></li>
+
+            {% endfor %}
+          </ul>
+        </li>
+
+      </ul>
+      {% if user.is_authenticated %}
+        <li class="nav-item mr-3">
+          <a href="javascript:{document.getElementById('logout').submit()}" class="nav-link">
+            <i class="fas fa-sign-out-alt"></i>LOGOUT
+          </a>
+          <form action="{% url 'dragonapp:logout' %}" id="logout" method="POST">
+            {% csrf_token %}
+            <input type="hidden">
+          </form>
+
+
+        </li>
+      {% else %}
+
+      <a class="btn btn-success m-1" href="{% url 'dragonapp:register' %}">REGISTER</a>
+      <br>
+      <a class="btn btn-primary m-1" href="{% url 'dragonapp:login' %}">LOGIN</a>
+      <br>
+      <a class="btn btn-warning" href="{% url 'dragonapp:logout' %}">LOGOUT</a>
+
+     {% endif %}
+
+
+      <form action="{% url 'dragonapp:search' %}" method="get" class="d-flex">
+        <input class="form-control me-2" type="search" name="query" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
+    </div>
+  </div>
+</nav>

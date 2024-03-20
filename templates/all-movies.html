@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block title %}All movies{% endblock %}
+
+{% block content %}
+<h1>All movies</h1>
+<div class="container">
+<div class="row">
+
+      {% for m in movies %}
+     <div class="col-4">
+
+        <div class="card" style="width: 18rem;">
+          <img src="{{m.poster.url}}" class="card-img-top" alt="...">
+          <div class="card-body">
+              <div style="background-color:#1DF0E7;">
+                  <b>{{m.category.category}} </b>
+              </div>
+
+            <h5 class="card-title">{{m.movie}}</h5>
+            <p class="card-text">{{m.release_date}}</p>
+            <a href="#" class="btn btn-primary">Go somewhere</a>
+          </div>
+       </div>
+
+   </div>
+
+
+ {% endfor %}
+
+</div>
+</div>
+
+
+
+
+
+
+{% endblock %}

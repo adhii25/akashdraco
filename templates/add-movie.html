@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% block title %}Add Movie{% endblock %}
+
+{% block content %}
+<h1 style="text-align:center;color:red;">Add Movie</h1>
+
+<div class="row">
+<div class="col-4"></div>
+<div class="col-4">
+    <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <label>Movie</label>
+    <input type="text" placeholder="Enter movie name" name="movie" class="form-control">
+    <br>
+    <label>Release Date</label>
+    <input type="date" name="r_date" class="form-control">
+    <br>
+     <label>Actors</label>
+    <textarea name="actors" class="form-control"></textarea>
+    <br>
+    <label>Description</label>
+    <textarea name="desc" class="form-control"></textarea>
+    <br>
+    <label>poster</label>
+    <input type="file" name="poster" class="form-control" >
+    <br>
+     <label>website</label>
+    <input type="url" name="websites" class="form-control" >
+    <br>
+     <select name="category" class="form-control">
+
+         {% for c in movie_cat %}
+
+           <option value="{{c.id}}">{{c.category}}</option>
+
+         {% endfor %}
+
+     </select>
+        <br>
+    <div style="text-align:center;">
+        <input type="submit" value="Add movie" class="btn btn-success">
+    </div>
+
+</form>
+
+</div>
+<div class="col-4"></div>
+</div>
+
+
+{% endblock %}

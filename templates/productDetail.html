@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container"><br>
+    <div class="row">
+      {% for i in prod %}
+    <div class="card mb-3" style="max-width: 540px;">
+  <div class="row g-0">
+    <div class="col-md-4">
+      <img src="{{i.poster.url}}" class="img-fluid rounded-start" alt="...">
+    </div>
+    <div class="col-md-8">
+      <div class="card-body">
+        <h5 class="card-title">{{i.movie}}</h5>
+        <p class="card-text">{{i.release_date}}</p>
+          <p class="card-text">{{i.description}}</p>
+        <p class="card-text">{{i.actors}}</p>
+        <p class="card-text">{{i.category}}</p>
+         <p><a href="https://www.youtube.com/" class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">{{i.websites}}</a></p>
+        <a href="{% url 'dragonapp:update' i.id %}" class="btn btn-primary">Update</a>
+        <br><br>
+        <a href="{% url 'dragonapp:delete' i.id %}" class="btn btn-danger">Delete</a> <br>
+      </div>
+    </div>
+  </div>
+</div>
+ {% endfor %}
+    </div>
+</div>
+
+
+<div class="container" style="border:solid;width:550px; margin-left:2px; border-color:white;">
+
+
+  <h3>All rating and reviews</h3>
+{% for x in reviews%}
+<p>{{ x.user }}</p>
+<p>{{ x.review_desp }}</p>
+
+
+
+                <hr>
+
+{% endfor %}
+<form method="post" action="">
+    {% csrf_token %}
+
+  <div class="col-md-6">
+                <p style="font-weight:600;">Write a review</p>
+                <form method="Post">
+                    {% csrf_token %}
+
+                           <div class="form-group required">
+
+                    </div>
+
+                    </div>
+                    <textarea name="item_review"  placeholder="write a review" rows="6" cols="50" id="review-text" required></textarea>
+                    <br>
+
+                <div class="row">
+
+                    <div class="col-md-4">
+
+                          <input type="submit"  class="btn btn-primary mt-2" value="Post">
+<!--                    col finish-->
+
+
+                </div>
+
+                </form>
+            </div>
+<!--            rate review col-->
+
+
+
+
+</div>
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block title %}ALL MOVIES{% endblock %}
+
+{% block content %}
+<h1 style="background-color:;color:white;text-align:center;"> MOVIE HUB</h1>
+<div class="container">
+<div class="row"><br>
+  {% for i in products %}
+<div class="col-4"><br>
+  <div class="card" style="width: 18rem;">
+  <img src="{{i.poster.url}}" class="card-img-top" alt="...">
+  <div class="card-body">
+    <div style="background-color:#1DF0E7;">
+      <b>{{i.category.category}} </b>
+    </div>
+
+    <h5 class="card-title">{{i.movie}}</h5>
+    <p class="card-text">{{i.release_date}}</p>
+    <a href="{% url 'dragonapp:product' i.id %}" class="btn btn-primary">Details</a><br>
+  </div>
+  </div>
+
+</div>
+
+{% endfor %}
+
+</div>
+
+</div>
+
+{% endblock %}
