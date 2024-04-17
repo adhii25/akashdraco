@@ -78,7 +78,7 @@ WSGI_APPLICATION = 'dragonprojects.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'dragonn',
+        'NAME': 'ddd',
         'USER': 'root',
         'PASSWORD': '',
 

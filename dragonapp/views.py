@@ -1,8 +1,11 @@
 from django.contrib import auth, messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.utils.text import slugify
+from  django.contrib import messages
+from django.views.decorators.http import require_POST
+
 
 from dragonapp.models import Movies, Categories
 from django.http import HttpResponse
@@ -65,20 +68,29 @@ def searchBar(request):
             return request(request,'searchbar.html',{})
 
 
-def Update(request,id):
+def Update(request, id, current_user=None):
     movie=Movies.objects.get(id=id)
     form=MoviesForm(request.POST or None,request.FILES,instance=movie)
     if form.is_valid():
         form.save()
-        return redirect('/')
+
+        fd = current_user.id
+        if fd == movie:
+            movie.delete()
+        else:
+            return redirect('/')
     return render(request,'update.html',{'form':form,'prod': movie})
 
+
+
+@login_required
 def Delete(request,id):
     if request.method == 'POST':
-      movie=Movies.objects.filter(id=id)
-      movie.delete()
-      return redirect('/')
+     event = Movies.objects.get(id=id)
+     event.delete()
+     return redirect('/')
     return render(request,'delete.html')
+
 
 
 
@@ -117,7 +129,7 @@ def login(request):
         username=request.POST['username']
         password=request.POST['password']
 
-        user= auth.authenticate(username=username,password=password)
+        user= auth.authenticate(request,username=username,password=password)
 
         if user is not None:
             auth.login(request,user)
@@ -160,6 +172,45 @@ def review_page(request):
     return render(request, 'productDetail.html', context)
 
 
+# def c_update(request,id):
+#     movie=Movies.objects.get(id=id)
+#     if request.user == movie.id:
+#         movie.update()
+#         messages.success(request,"movie deleted")
+#         return redirect('/')
+#     else:
+#         messages.success(request,'You cant access')
+#         return redirect('/')
+#     return render(requests,'c_page.html',{'movie':movie})
+#
 
 
+    # movie = Movies.objects.get(id=id)
+    # if request.user == movie.category:
+    #     movie.update()
+    #     messages.success(request, "movie deleted")
+    #     return redirect('/')
+    # else:
+    #     messages.success(request, 'You cant access')
+    #     return redirect('/')
 
+    # @login_required
+    # def Delete(request, id):
+    #     current_user = request.User.id
+    #     post = Movies.objects.filter(id=id)
+    #     if request.method == 'POST':
+    #         all = current_user == post
+    #         all.delete()
+    #
+    #         return HttpResponse("post edited successfully")
+    #     else:
+    #         # return HttpResponse("you are not authorised")
+    #         return render(request, 'delete.html')
+
+    # def Delete(request, id):
+    #     post = get_object_or_404(Movies, id=id)
+    #     if request.GET[Movies.category] == Movies.category:
+    #         post.delete()
+    #         return redirect('/')
+    #     else:
+    #         return render(request, 'delete.html')

@@ -1,3 +1,5 @@
+import uuid
+
 from django.db import models
 
 # Create your models here.
@@ -7,6 +9,10 @@ class Categories(models.Model):
 
     def __str__(self):
         return self.category
+
+
+def generate_unique():
+    pass
 
 
 class Movies(models.Model):

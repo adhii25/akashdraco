@@ -3,14 +3,14 @@
 
 {% block content %}
 <h1>All movies</h1>
-<div class="container">
-<div class="row">
+<div class="container"><br>
+<div class="row"><br>
 
       {% for m in movies %}
-     <div class="col-4">
+     <div class="col-4"><br>
 
-        <div class="card" style="width: 18rem;">
-          <img src="{{m.poster.url}}" class="card-img-top" alt="...">
+        <div class="card" style="width: 18rem;"><br>
+          <img src="{{m.poster.url}}" class="card-img-top" style="height: 350px;" alt="...">
           <div class="card-body">
               <div style="background-color:#1DF0E7;">
                   <b>{{m.category.category}} </b>
@@ -18,7 +18,7 @@
 
             <h5 class="card-title">{{m.movie}}</h5>
             <p class="card-text">{{m.release_date}}</p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
+            <a href="{% url 'dragonapp:product' m.id %}"  class="btn btn-primary">Go somewhere</a>
           </div>
        </div>
 

@@ -17,9 +17,15 @@
         <p class="card-text">{{i.actors}}</p>
         <p class="card-text">{{i.category}}</p>
          <p><a href="https://www.youtube.com/" class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">{{i.websites}}</a></p>
-        <a href="{% url 'dragonapp:update' i.id %}" class="btn btn-primary">Update</a>
+
+          {% if user.is_authenticated %}
+
+          {% if user.id == i.id %}
+          <a href="{% url 'dragonapp:update' i.id %}" class="btn btn-primary">Update</a>
         <br><br>
         <a href="{% url 'dragonapp:delete' i.id %}" class="btn btn-danger">Delete</a> <br>
+          {% endif %}
+          {% endif %}
       </div>
     </div>
   </div>

@@ -15,3 +15,9 @@ class MoviesForm(forms.ModelForm):
     class Meta:
         model=Movies
         fields=['movie','poster','release_date','description','actors','category']
+        widgets= {
+                  'movie': forms.TextInput(attrs={'class': 'form-control'}),
+                  'poster':forms.FileInput(attrs={'class': 'form-control'}),
+                  'release_date': forms.TimeInput(attrs={'class': 'form-control'}),
+
+        }
