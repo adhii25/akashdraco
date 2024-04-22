@@ -1,0 +1,2 @@
+class UserEditView:
+    pass

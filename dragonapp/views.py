@@ -1,10 +1,13 @@
 from django.contrib import auth, messages
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import UserChangeForm
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils.text import slugify
 from  django.contrib import messages
+from django.views import generic
 from django.views.decorators.http import require_POST
+from .forms import EditProfileForm
 
 
 from dragonapp.models import Movies, Categories
@@ -170,6 +173,34 @@ def review_page(request):
     rating_details = review.objects.filter(item=item_details)
     context = {'reviews': rating_details}
     return render(request, 'productDetail.html', context)
+@login_required
+def edit_profile(request):
+    if request.method == 'POST':
+        form = EditProfileForm(request.POST,instance=request.user)
+        if form.is_valid():
+            form.save()
+            return HttpResponse('Your profile is updated')
+    else:
+        form = EditProfileForm(instance=request.user)
+    return render(request,'edit_profile.html',{'form':form})
+
+
+
+
+
+# def update_user(request,id):
+#     user = user.objects.get(id=id)
+#     form = MoviesForm(instance=user)
+#     if request.method == 'POST':
+#         form = MoviesForm(request.POST,request.FILES,instance=user)
+#         if form.is_valid():
+#             form.save()
+#             return redirect('/')
+#         context = {
+#             "form":form
+#         }
+#         return render(request,'edit_profile.html',context)
+
 
 
 # def c_update(request,id):
