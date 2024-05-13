@@ -1,3 +1,8 @@
+
+
+
+
+
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div class="container-fluid">
 
@@ -25,9 +30,9 @@
             CATEGORIES
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">All Movies</a></li>
+            <li><a class="dropdown-item" href="{% url 'dragonapp:all_movies' %}">All Movies</a></li>
             {% for c in movie_cat %}
-            <li><a class="dropdown-item" href="#">{{c.category}}</a></li>
+            <li><a class="dropdown-item" href="{% url 'dragonapp:movie_by_category' c.slug %}">{{c.category}}</a></li>
 
             {% endfor %}
           </ul>

@@ -48,8 +48,12 @@ def Addmovie(request):
     return render(request,'add-movie.html')
 
 @login_required(login_url='/')
-def AllMovies(request):
-    my_movies=Movies.objects.all()
+def AllMovies(request,c_link=None):
+    if c_link!=None:
+        cat=Categories.objects.get(slug=c_link)
+        my_movies=Movies.objects.filter(category=cat)
+    else:
+      my_movies=Movies.objects.all()
     return render(request,"all-movies.html",{"movies":my_movies})
 
 def Category(request):
@@ -69,6 +73,7 @@ def searchBar(request):
         else:
             print("No information")
             return request(request,'searchbar.html',{})
+
 
 
 def Update(request, id, current_user=None):
@@ -186,7 +191,9 @@ def edit_profile(request):
 
 
 
-
+def categories(request):
+    c=Movies.objects.all()
+    return render(request,"categories.html",{'c':c})
 
 # def update_user(request,id):
 #     user = user.objects.get(id=id)

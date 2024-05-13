@@ -4,3 +4,5 @@
 {% block content %}
 <h1>Contact</h1>
 {% endblock %}
+{% if 'dragonapp' in request.path %}active{% endif %}
+{% url 'dragonapp:all_movies' %}

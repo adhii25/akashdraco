@@ -8,6 +8,7 @@ urlpatterns = [
     path('contact/',views.Contact),
     path('new-movie/',views.Addmovie,name="add_movie"),
     path('all-movies/', views.AllMovies, name="all_movies"),
+    path('movie_cat/<slug:c_link>', views.AllMovies, name="movie_by_category"),
     path('category/', views.Category),
     path('product/<int:id>', views.ProductDetail, name="product"),
     path('search/', views.searchBar, name="search"),
@@ -17,5 +18,6 @@ urlpatterns = [
     path('login/', views.login, name="login"),
     path('logout/', views.logout, name="logout"),
     path('edit_profile/', views.edit_profile, name="edit_profile"),
+    path('categories/', views.categories, name="categories"),
 
 ]
